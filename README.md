@@ -6,21 +6,31 @@ Also, the search field and the text-entry field are the same, and as you type in
 
 ## Version 2.x Release June 2023
 
-This is an entirely new port of my earlier Drop-React (https://github.com/xerocross/drop-react), which I wrote in 2019. This isn't an update. Rather, I rebuilt the project entirely on up-to-date platforms and packages (as of June 2023) and ported the code over. In a sense, therefore, it is quite modern because it is built on modern platforms. In a sense, it is still code from 2019 because I did not change the architecture or rewrite the code in modern idioms. The architectural choices and JavaScript idioms are those that were current to me in 2019.
+This is an entirely new port of my earlier Drop-React (https://github.com/xerocross/drop-react), which I wrote in 2019. This isn't an update. Rather, I rebuilt the project entirely on up-to-date platforms and packages (as of June 2023) and ported the code over. In a sense, therefore, it is quite modern because it is built on modern platforms. In a sense, it is still code from 2019 because I did not change the architecture or rewrite the code in 2023 idioms. The architectural choices and JavaScript idioms are those that were current to me in 2019. Even then, there were some new JavaScript idioms emerging that I was not on board with, so you'll see some old fashioned code in here. I stand by my choices. I don't think one needs to use all the syntactic sugar all the time.
 
 ## Technology
 
 This is a **React/Redux** application, meaning it uses Redux architecture to maintain a global state. I'm still not sure I was ever sold on that, but it was very much the style of the time in 2019. It uses a **MongoDB** database on the backend for persistence. That was a novel advancement for me at the time as I was trained originally as a frontend engineer, and I wrote frontend widgets with entirely static backends.
 
-The backend code of this app is not located here. It's a very small and simple express server that handles interactions with the database. I call it thin-data-backend, but it is not worth publishing. 
+The backend code of this app is not located here. It's a very small and simple express server that handles interactions with the database. I call it thin-data-backend, but it is not worth publishing.
+
+### Home-rolled Code versus Libraries
+
+Some things here are notably home-rolled when I could easily have used an existing library. When I do that, 
+it's usually because I want to practice exactly what I'm doing, whether that's writing vanilla JavaScript or
+using some particular package. For one example, I wrote my own very simple "Observable" object rather than 
+use a library Observable or promises.
 
 ## To-Do
 
 There are still perhaps a thousand violations of my own eslint rule-set, and I think many of the unit tests need
-to be improved using proper asynchronous functions. These are things I may get around to improving one day, but
+to be improved using proper asynchronous functions. Also some of the files seem to have been filed in the wrong directoroy. 
+These are things I may get around to improving one day, but
 the app works, and that is my main concern.
 
-I don't plan any major changes or improvements to the nature of the app. I consider it stable.
+I don't plan any major changes or improvements to the nature of this app. I consider it stable. I probably won't make any
+changes worthy of bumping up to version 3 until most 2023 technology is no longer supported. However, there may be a 
+**Drop-Spring** sometime in the not-so-distant future.
 
 ## Create-react-app Boilerplate
 
