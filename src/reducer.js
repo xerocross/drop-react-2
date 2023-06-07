@@ -29,18 +29,17 @@ const initialState = (obj) => {
     });
 }
 
-let cloneObj = (obj) => {
-    let newObj = {};
+const cloneObj = (obj) => {
+    const newObj = {};
     return Object.assign(newObj, obj);
 }
 
 function getHashtags (previousState, state) {
-    let prevHashtags = previousState.hashtags;
-    let newHashtagList = HashtagHelper.parse(state.droptext);
+    const prevHashtags = previousState.hashtags;
+    const newHashtagList = HashtagHelper.parse(state.droptext);
     if (prevHashtags.length !== newHashtagList.length) {
         return newHashtagList;
-    }
-    else {
+    } else {
         for (let i = 0; i < prevHashtags.length; i++) {
             if (prevHashtags[i] !== newHashtagList[i]) {
                 return newHashtagList;
@@ -54,27 +53,27 @@ function getSelectedDrops (previousState, state) {
     if (previousState.hashtags === state.hashtags && previousState.drops === state.drops) {
         return previousState.selectedDrops;
     }
-    let hashtags = state.hashtags;
+    const hashtags = state.hashtags;
     let selectedDrops = state.drops.slice();
     function testFunc (drop, hashtag) {
-        let pattern = new RegExp(hashtag.substring(1), "i"); // cut off the '#' symbol
+        const pattern = new RegExp(hashtag.substring(1), "i"); // cut off the '#' symbol
         return pattern.test(drop.text);
     }
-    for (let tag of hashtags) {
+    for (const tag of hashtags) {
         selectedDrops = selectedDrops.filter(drop => testFunc(drop, tag));
     }
     return selectedDrops;
 }
 
 function addToList (list, elt) {
-    let clonelist = list.slice();
+    const clonelist = list.slice();
     clonelist.push(elt);
     return clonelist;
 }
 
 function removeFromList (list, elt) {
-    let cloneList = list.slice();
-    let index = cloneList.indexOf(elt);
+    const cloneList = list.slice();
+    const index = cloneList.indexOf(elt);
     if (index > -1) {
         cloneList.splice(index, 1);
     }
@@ -85,7 +84,7 @@ export default function (state, action) {
     if (typeof state === "undefined") {
         return initialState({});
     }
-    let newState = cloneObj(state);
+    const newState = cloneObj(state);
     let unsavedDrops;
     let index;
     let droplist;
@@ -128,7 +127,7 @@ export default function (state, action) {
         newState.unsavedDrops = unsavedDrops;
         break;
     case "ATTEMPT_SAVE_DROP":
-        let drop = action.payload;
+        const drop = action.payload;
         unsavedDrops = state.unsavedDrops.slice();
         unsavedDrops.push(drop);
         newState.unsavedDrops = unsavedDrops;

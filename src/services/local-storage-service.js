@@ -1,11 +1,11 @@
-let base_key = "drop-local-storage"
+const base_key = "drop-local-storage"
 
 export default {
     getDropListKey (username) {
         return `${base_key}:${username}`;
     },
     getDropKey (dropId) {
-        return  `${base_key}:${dropId}`;
+        return `${base_key}:${dropId}`;
     },
     addToList (username, drop) {
         if (!localStorage) {
@@ -24,7 +24,7 @@ export default {
         }
     },
     saveDrop (drop) {
-        let username = drop.username;
+        const username = drop.username;
         localStorage.setItem(this.getDropKey(drop._id), JSON.stringify(drop));
         this.addToList(username, drop);
     },
