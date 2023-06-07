@@ -1,7 +1,9 @@
+import { LocalStorageWrapper } from "cross-js-base";
+
 export default {
     getUsername () {
         if (localStorage) {
-            const username = localStorage.getItem("drop:username");
+            const username = LocalStorageWrapper.getItem("drop:username");
             return (username && username.length > 0) ? username : undefined;
         } else {
             return undefined;
@@ -9,12 +11,12 @@ export default {
     },
     setUsername (username) {
         if (localStorage) {
-            localStorage.setItem("drop:username", username);
+            LocalStorageWrapper.setItem("drop:username", username);
         }
     },
     clearUsername () {
         if (localStorage) {
-            localStorage.removeItem("drop:username");
+            LocalStorageWrapper.removeItem("drop:username");
         }
     }
 }
