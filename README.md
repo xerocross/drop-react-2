@@ -1,6 +1,6 @@
 # Drop-React-2
 
-As I affectionately call this application in all it's forms, "Drop", is an app for storing text information of any kind for any reason. You "drop" it in the app so you don't have to remember it. What's cool about Drop is that you can use #hashtags in your drops (dropped text items) and Drop intelligently registers hashtags as keywords. Then you can search among your drops using hashtags, and if you use more than one your search is the intersection rather than the union of the results for the individual hashtags. That is what I consider useful and novel about Drop.
+As I affectionately call this application in all its forms, "Drop", is an app for storing text information of any kind for any reason. You "drop" it in the app so you don't have to remember it. What's cool about Drop is that you can use #hashtags in your drops (dropped text items) and Drop intelligently registers hashtags as keywords. Then you can search among your drops using hashtags, and if you use more than one your search is the intersection rather than the union of the results for the individual hashtags. That is what I consider useful and novel about Drop.
 
 Also, the search field and the text-entry field are the same, and as you type in the field, search results are updated with each keystroke, debounced.
 
