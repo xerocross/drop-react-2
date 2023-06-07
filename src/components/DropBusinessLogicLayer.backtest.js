@@ -6,6 +6,7 @@ import Store from "../store.js";
 import { Provider } from "react-redux";
 import { NEW_DROPTEXT, UPDATE_DROPS, ATTEMPT_SAVE_DROP, DROP_FAILED_TO_SAVE } from "../actions.js";
 import { exampleDrops6, COPY } from "../testing-helpers.js";
+import DropNote from "../entities/DropNote.js";
 
 let div;
 let getByTestId, queryByTestId;
@@ -18,11 +19,21 @@ let drops = [];
 beforeEach(() => {
     store = Store();
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
 });
+
+const drop1 = new DropNote("candy apple", "user");
+drop1.hashtags = [];
+drop1.key = "0";
+const drop2 = new DropNote("candy pear", "user");
+drop2.hashtags = [];
+drop2.key = "1";
+const drop3 = new DropNote("candy #watermelon", "user");
+drop3.hashtags = ["#watermelon"];
+drop3.key = "2";
 
 function renderWithOptions (config) {
     return render(<Provider store={store}><DropBusinessLogicLayer
@@ -228,21 +239,9 @@ describe("handles hashtag/drop intersection as expected", () => {
     describe("if searching drops without explicit hash marks", () => {
         it('shows one matching drop with substring', () => {
             drops = [
-                {
-                    text : "candy apple",
-                    hashtags : [],
-                    key : "0"
-                },
-                {
-                    text : "candy pear",
-                    hashtags : [],
-                    key : "1"
-                },
-                {
-                    text : "candy #watermelon",
-                    hashtags : ["#watermelon"],
-                    key : "2"
-                }
+                drop1,
+                drop2,
+                drop3
             ];
             store.dispatch(UPDATE_DROPS(drops));
             store.dispatch(NEW_DROPTEXT("#pear"));
@@ -255,22 +254,19 @@ describe("handles hashtag/drop intersection as expected", () => {
             expect(elt.attr("data-dropkey")).toBe(drops[1].key);
         });
         it('shows two matching drop with substring', () => {
+            const drop1 = new DropNote("#candy apple", "user");
+            drop1.hashtags = [];
+            drop1.key = "0";
+            const drop2 = new DropNote("#candy pear", "user");
+            drop2.hashtags = [];
+            drop2.key = "1";
+            const drop3 = new DropNote("candy #watermelon", "user");
+            drop3.hashtags = ["#watermelon"];
+            drop3.key = "2";
             drops = [
-                {
-                    text : "candy apple",
-                    hashtags : [],
-                    key : "0"
-                },
-                {
-                    text : "#candy pear",
-                    hashtags : [],
-                    key : "1"
-                },
-                {
-                    text : "#watermelon",
-                    hashtags : ["#watermelon"],
-                    key : "2"
-                }
+                drop1,
+                drop2,
+                drop3
             ];
             store.dispatch(UPDATE_DROPS(drops));
             store.dispatch(NEW_DROPTEXT("#candy"));
@@ -286,21 +282,9 @@ describe("handles hashtag/drop intersection as expected", () => {
 
     it('shows only drops matching one hashtag (1)', () => {
         drops = [
-            {
-                text : "candy #apple",
-                hashtags : ["#apple"],
-                key : "0"
-            },
-            {
-                text : "candy #pear",
-                hashtags : ["#pear"],
-                key : "1"
-            },
-            {
-                text : "candy #watermelon",
-                hashtags : ["#watermelon"],
-                key : "2"
-            }
+            drop1,
+            drop2,
+            drop3
         ];
         store.dispatch(UPDATE_DROPS(drops));
         store.dispatch(NEW_DROPTEXT("this is a #pear test string"));

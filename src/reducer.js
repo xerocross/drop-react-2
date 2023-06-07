@@ -27,12 +27,12 @@ const initialState = (obj) => {
         dropsFailedToSave : dropsFailedToSave,
         isTryingSaveAgain : false
     });
-}
+};
 
 const cloneObj = (obj) => {
     const newObj = {};
     return Object.assign(newObj, obj);
-}
+};
 
 function getHashtags (previousState, state) {
     const prevHashtags = previousState.hashtags;

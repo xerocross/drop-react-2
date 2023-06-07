@@ -11,7 +11,7 @@ export default {
         });
     },
     deleteDrop (id) {
-        const deleteUrl = `${baseUrl}/drop/${id}`
+        const deleteUrl = `${baseUrl}/drop/${id}`;
         return DurableAxios.delete({
             url : deleteUrl,
             numTries : 7
@@ -24,4 +24,4 @@ export default {
             numTries : 7
         });
     }
-}
+};

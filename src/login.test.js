@@ -5,6 +5,7 @@ import DropBackendService from "./services/DropBackendService.js";
 import Observable from "./helpers/Observable.js";
 import LoginHelper from "./helpers/LoginHelper.js";
 import $ from "jquery";
+import DropNote from "./entities/DropNote.js";
 
 jest.mock('./services/DropBackendService.js');
 jest.mock('./helpers/LoginHelper.js');
@@ -14,22 +15,22 @@ let getByTestId, queryByTestId;
 
 beforeEach(() => {
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
     LoginHelper.setLocalUsername.mockReset();
 });
 
+const exampleDrop = new DropNote("candy #apple");
+exampleDrop.hashtags = ["#apple"];
+exampleDrop.key = "0";
+
 const exampleData = () => {
     return [
-        {
-            text : "candy #apple",
-            hashtags : ["#apple"],
-            key : "0"
-        }
+        exampleDrop
     ];
-}
+};
 
 describe("if no username in local storage...", () => {
     it('renders app without crashing', () => {
@@ -171,7 +172,7 @@ describe("if no username in local storage...", () => {
                 fireEvent.click(loginButton);
                 const logoutButton = getByTestId("logout-button");
                 fireEvent.click(logoutButton);
-                const MainDumbViewLayerElt = queryByTestId("MainDumbViewLayer")
+                const MainDumbViewLayerElt = queryByTestId("MainDumbViewLayer");
                 expect(MainDumbViewLayerElt).toBeFalsy();
             });
             it("calls unsetLocalUsername", (done) => {

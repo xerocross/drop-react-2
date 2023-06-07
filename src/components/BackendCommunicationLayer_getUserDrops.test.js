@@ -1,17 +1,12 @@
 import React from 'react';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, render, act } from '@testing-library/react';
 import BackendCommunicationLayer from "./BackendCommunicationLayer.jsx";
 import Observable from "../helpers/Observable";
-import $ from "jquery";
 import Store from "../store.js";
 import { Provider } from "react-redux";
-import { NEW_DROPTEXT, UPDATE_DROPS } from "../actions.js";
 import COPY from "../configuration/messages-copy.js";
-import DropNode from "../entities/DropNote.js";
 
 let div;
-let getByTestId;
-let container;
 let store;
 
 let DropBackendService;
@@ -24,16 +19,16 @@ const getBackendService = () => {
             return new Observable((observer) => {
                 observer.next({
                 });
-            })
+            });
         },
         deleteDrop : (username) => {
             return new Observable((observer) => {
             });
         }
     };
-}
+};
 const noop = () => {};
-
+let getByTestId;
 beforeEach(() => {
     div = document.createElement('div');
     store = Store();
@@ -46,7 +41,7 @@ afterEach(() => {
 
 const throwIt = (val) => {
     throw new Error(`${val} not defined`);
-}
+};
 
 function renderWithOptions (config) {
     return render(<Provider store={store}><BackendCommunicationLayer
@@ -86,9 +81,11 @@ describe("status messages", () => {
         ({ getByTestId } = renderWithOptions({
             pushNewStatusMessage : pushNewStatusMessage
         }));
-        localObserver.next({
-            status : "SUCCESS",
-            data : []
+        act(() => {
+            localObserver.next({
+                status : "SUCCESS",
+                data : []
+            });
         });
         expect(pushNewStatusMessage.mock.calls[1][0]).toBe(COPY.IS_SYNCED_MESSAGE);
     });
@@ -103,8 +100,10 @@ describe("status messages", () => {
         ({ getByTestId } = renderWithOptions({
             pushNewStatusMessage : pushNewStatusMessage
         }));
-        localObserver.next({
-            status : "FAILED_ATTEMPT"
+        act(() => {
+            localObserver.next({
+                status : "FAILED_ATTEMPT"
+            });
         });
         expect(pushNewStatusMessage.mock.calls[1][0]).toBe(COPY.SERVER_RESPONSE_ERROR);
     });
@@ -113,24 +112,23 @@ describe("status messages", () => {
 test('calls getUserDrops on mount', (done) => {
     DropBackendService.getUserDrops = () => {
         done();
-        return new Observable((observer) => {})
+        return new Observable((observer) => {});
     };
-    renderWithOptions({
-    });
+    renderWithOptions({});
 });
 
 test('calls setFatalError if call to DropBackendService.getUserDrops returns "FAIL" status', (done) => {
     const setFatalError = () => {
         done();
-    }
+    };
     DropBackendService.getUserDrops = (username) => {
         return new Observable((observer) => {
             observer.next({
                 status : "FAIL"
             });
-        })
+        });
     };
-    ({ getByTestId, container } = renderWithOptions({
+    (renderWithOptions({
         setFatalError : setFatalError
     }));
 });
@@ -140,7 +138,7 @@ test('calls getUserDrops on mount with the username that was passed in', (done) 
         expect(username).toBe("adam");
         done();
         return new Observable((observer) => {
-        })
+        });
     };
     renderWithOptions({});
 });
@@ -149,7 +147,7 @@ test('calls getUserDrops on mount and subscribes to observable', (done) => {
     DropBackendService.getUserDrops = (username) => {
         return new Observable((observer) => {
             done();
-        })
+        });
     };
     renderWithOptions({});
 });
@@ -159,7 +157,7 @@ test('dispatches UPDATE_DROPS if getUserDrops returns "SUCCESS"', () => {
     DropBackendService.getUserDrops = (username) => {
         return new Observable((observer) => {
             localObserver = observer;
-        })
+        });
     };
     store.dispatch = jest.fn();
     ({ getByTestId } = renderWithOptions({}));
@@ -182,7 +180,7 @@ test('passes correct number of data entries to UPDATE_DROPS (3)', () => {
     DropBackendService.getUserDrops = (username) => {
         return new Observable((observer) => {
             localObserver = observer;
-        })
+        });
     };
     store.dispatch = jest.fn();
     ({ getByTestId } = renderWithOptions({}));

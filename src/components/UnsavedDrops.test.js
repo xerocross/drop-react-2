@@ -1,118 +1,79 @@
 import React from "react";
-import { cleanup, fireEvent, render, act } from '@testing-library/react';
+import { cleanup, render, act } from '@testing-library/react';
 import UnsavedDrops from "./UnsavedDrops.jsx";
 import $ from "jquery";
+import { drop1, drop2, drop3, drop4, drop5, drop6 } from "../testing-helpers.js";
 
 let div;
 let getByTestId;
 let queryByTestId;
-let container;
+let trySaveUnsavedDrops;
 
-const noop = () => {};
 const setProps = () => {
-}
+};
 let unsavedDrops = [];
-const trySaveUnsavedDrops = noop;
 
 beforeEach(() => {
     setProps();
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
 });
 
 test('renders without crashing', () => {
-    ({ getByTestId } = render(<UnsavedDrops
-        unsavedDrops = {unsavedDrops}
-        trySaveUnsavedDrops = {trySaveUnsavedDrops}
-    />, div));
+    expect(() => {
+        render(<UnsavedDrops
+            unsavedDrops = {unsavedDrops}
+            trySaveUnsavedDrops = {trySaveUnsavedDrops}
+        />, div);
+    }).not.toThrow();
 });
 
 test('renders DropList', () => {
-    ({ getByTestId, queryByTestId } = render(<UnsavedDrops
-        unsavedDrops = {unsavedDrops}
-        trySaveUnsavedDrops = {trySaveUnsavedDrops}
-    />, div));
+    act(() => {
+        ({ getByTestId, queryByTestId } = render(<UnsavedDrops
+            unsavedDrops = {unsavedDrops}
+            trySaveUnsavedDrops = {trySaveUnsavedDrops}
+        />, div));
+    });
     const elt = queryByTestId("drop-list");
     expect(elt).toBeTruthy();
 });
 
 test('renders DropList with correct number of drops (2)', () => {
     unsavedDrops = [
-        {
-            text : "happy",
-            hashtags : [],
-            key : "happy"
-        },
-        {
-            text : "day",
-            hashtags : [],
-            key : "day"
-        }
+        drop1,
+        drop2
     ];
-    ({ getByTestId, queryByTestId } = render(<UnsavedDrops
-        unsavedDrops = {unsavedDrops}
-        trySaveUnsavedDrops = {trySaveUnsavedDrops}
-    />, div));
+    act(() => {
+        ({ queryByTestId } = render(<UnsavedDrops
+            unsavedDrops = {unsavedDrops}
+            trySaveUnsavedDrops = {trySaveUnsavedDrops}
+        />, div));
+    });
     const elt = queryByTestId("drop-list");
-
-    const dropitems = $(".drop-row", elt)
+    const dropitems = $(".drop-row", elt);
     expect(dropitems).toHaveLength(2);
 });
 
 test('renders DropList with correct number of drops (6)', () => {
     unsavedDrops = [
-        {
-            text : "happy",
-            hashtags : [],
-            key : "happy"
-        },
-        {
-            text : "day",
-            hashtags : [],
-            key : "day"
-        },
-        {
-            text : "happy0",
-            hashtags : [],
-            key : "happy0"
-        },
-        {
-            text : "day0",
-            hashtags : [],
-            key : "day0"
-        },
-        {
-            text : "happy9",
-            hashtags : [],
-            key : "happy9"
-        },
-        {
-            text : "day9",
-            hashtags : [],
-            key : "day9"
-        }
+        drop1,
+        drop2,
+        drop3,
+        drop4,
+        drop5,
+        drop6
     ];
-    ({ getByTestId, queryByTestId } = render(<UnsavedDrops
-        unsavedDrops = {unsavedDrops}
-        trySaveUnsavedDrops = {trySaveUnsavedDrops}
-    />, div));
+    act(() => {
+        ({ queryByTestId } = render(<UnsavedDrops
+            unsavedDrops = {unsavedDrops}
+            trySaveUnsavedDrops = {trySaveUnsavedDrops}
+        />, div));
+    });
     const elt = queryByTestId("drop-list");
-
-    const dropitems = $(".drop-row", elt)
+    const dropitems = $(".drop-row", elt);
     expect(dropitems).toHaveLength(6);
 });
-
-// test('click try again fires trySaveUnsavedDrops', (done) => {
-//     trySaveUnsavedDrops = ()=>{
-//         done();
-//     }
-//     ({ getByTestId, queryByTestId } = render(<UnsavedDrops
-//         unsavedDrops = {unsavedDrops}
-//         trySaveUnsavedDrops = {trySaveUnsavedDrops}
-//     />, div) );
-//     let button = getByTestId("unsaved-drops-try-again");
-//     fireEvent.click(button);
-// });

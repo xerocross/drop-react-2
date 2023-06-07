@@ -18,14 +18,14 @@ const getBackendService = () => {
             return new Observable((observer) => {
                 observer.next({
                 });
-            })
+            });
         },
         deleteDrop : (username) => {
             return new Observable((observer) => {
             });
         }
     };
-}
+};
 const noop = () => {};
 
 beforeEach(() => {
@@ -40,7 +40,7 @@ afterEach(() => {
 
 const throwIt = (val) => {
     throw new Error(`${val} not defined`);
-}
+};
 
 function renderWithOptions (config) {
     return render(<Provider store={store}><BackendCommunicationLayer

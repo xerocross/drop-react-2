@@ -15,4 +15,4 @@ export default {
         hashtags = hashtags.map(val => (val.toLowerCase()));
         return hashtags;
     }
-}
+};

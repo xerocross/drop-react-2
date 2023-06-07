@@ -7,7 +7,7 @@ import DropNote from "../entities/DropNote.js";
 
 let div;
 let container;
-afterEach(cleanup)
+afterEach(cleanup);
 
 let getByTestId;
 const noop = () => {};
@@ -17,7 +17,7 @@ const setProps = () => {
 beforeEach(() => {
     setProps();
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
@@ -29,7 +29,7 @@ exampleDrop.key = "0";
 exampleDrop._id = "0";
 const drops = [
     exampleDrop
-]
+];
 const exampleDrop2 = new DropNote("#pear", "#pear");
 exampleDrop2.hashtags = ["#pear"];
 exampleDrop2.key = "1";
@@ -95,7 +95,7 @@ test('clicking delete fires deleteDrop function', (done) => {
     const drops = [exampleDrop];
     const deleteDrop = (drop) => {
         done();
-    }
+    };
     ({ getByTestId, container } = render(<DropList
         drops = { drops }
         deleteDrop = {deleteDrop}
@@ -111,7 +111,7 @@ test('clicking delete sends appropriate drop to deleteDrop function (0)', (done)
     const deleteDrop = (drop) => {
         expect(drop._id).toBe("0");
         done();
-    }
+    };
     ({ getByTestId, container } = render(<DropList
         drops = { drops }
         deleteDrop = {deleteDrop}
@@ -127,7 +127,7 @@ test('clicking delete sends appropriate drop to deleteDrop function (1)', (done)
     const deleteDrop = (drop) => {
         expect(drop._id).toBe("1");
         done();
-    }
+    };
     ({ getByTestId, container } = render(<DropList
         drops = { drops }
         deleteDrop = {deleteDrop}

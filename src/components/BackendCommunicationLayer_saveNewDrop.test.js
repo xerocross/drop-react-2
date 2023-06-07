@@ -24,14 +24,14 @@ const getBackendService = () => {
             return new Observable((observer) => {
                 observer.next({
                 });
-            })
+            });
         },
         deleteDrop : (username) => {
             return new Observable((observer) => {
             });
         }
     };
-}
+};
 const noop = () => {};
 beforeEach(() => {
     div = document.createElement('div');
@@ -45,7 +45,7 @@ afterEach(() => {
 
 const throwIt = (val) => {
     throw new Error(`${val} not defined`);
-}
+};
 
 function renderWithOptions (config) {
     return render(<Provider store={store}><BackendCommunicationLayer
@@ -72,24 +72,34 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (drop) => {
                 return new Observable((observer) => {
                     done();
-                })
+                });
             };
-            store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({}));
+            act(() => {
+                store.dispatch(NEW_DROPTEXT(droptext));
+            });
+            act(() => {
+                ({ getByTestId } = renderWithOptions({}));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
         });
         it('passes droptext into saveNewDrop function', (done) => {
             DropBackendService.saveNewDrop = (drop) => {
                 expect(drop.text).toBe("apple #candy");
                 return new Observable((observer) => {
                     done();
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({}));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({}));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
         });
         test('passes current username into saveNewDrop as .username', (done) => {
             const testname = "adamzap";
@@ -97,14 +107,18 @@ describe("handles saveNewDrop correctly", () => {
                 expect(drop.username).toBe(testname);
                 return new Observable((observer) => {
                     done();
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-                username : testname
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                    username : testname
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
         });
     });
 
@@ -112,11 +126,15 @@ describe("handles saveNewDrop correctly", () => {
         it("dispatches ATTEMPT_SAVE_DROP with drop payload when it begins attempting to save a new drop to backend", (done) => {
             store.dispatch(NEW_DROPTEXT(droptext));
             store.dispatch = jest.fn(store.dispatch);
-            ({ getByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
             store.dispatch.mockClear();
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
             const calls = store.dispatch.mock.calls;
             calls.forEach(call => {
                 if (call[0].type === "ATTEMPT_SAVE_DROP") {
@@ -128,20 +146,28 @@ describe("handles saveNewDrop correctly", () => {
         it("pushes SENDING_DROP status when attempting to save drop", () => {
             const pushNewStatusMessage = jest.fn();
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-                pushNewStatusMessage : pushNewStatusMessage
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                    pushNewStatusMessage : pushNewStatusMessage
+                }));
+            });
             const dropButton = getByTestId("drop-button");
             pushNewStatusMessage.mockClear();
-            fireEvent.click(dropButton);
-            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.SENDING_DROP)
+            act(() => {
+                fireEvent.click(dropButton);
+            });
+            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.SENDING_DROP);
         });
         it("adds drop to 'unsavedDrops' when user clicks to save new drop", () => {
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
             const unsavedDropsElt = getByTestId("unsaved-drops");
             const unsavedDropsList = $(".drop-row", unsavedDropsElt);
             expect(unsavedDropsList).toHaveLength(1);
@@ -149,13 +175,17 @@ describe("handles saveNewDrop correctly", () => {
         it("does not immediately add new drop to 'drops' when user clicks to save new drop", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
             const dropsearchElt = getByTestId("drop-search");
             const dropList = $(".drop-row", dropsearchElt);
             expect(dropList).toHaveLength(0);
@@ -165,20 +195,24 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             const pushNewStatusMessage = jest.fn();
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-                pushNewStatusMessage : pushNewStatusMessage
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                    pushNewStatusMessage : pushNewStatusMessage
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
             pushNewStatusMessage.mockClear();
             localObserver.next({
                 status : "FAILED_ATTEMPT"
             });
-            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.SERVER_RESPONSE_ERROR)
+            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.SERVER_RESPONSE_ERROR);
         });
     });
 
@@ -188,17 +222,23 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
             store.dispatch = jest.fn(store.dispatch);
-            ({ getByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
             store.dispatch.mockClear();
-            localObserver.next({
-                status : "FAIL"
+            act(() => {
+                localObserver.next({
+                    status : "FAIL"
+                });
             });
             const calls = store.dispatch.mock.calls;
             calls.forEach(call => {
@@ -213,15 +253,21 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId, queryByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
-            localObserver.next({
-                status : "FAIL"
+            act(() => {
+                fireEvent.click(dropButton);
+            });
+            act(() => {
+                localObserver.next({
+                    status : "FAIL"
+                });
             });
             const FailedToSaveElt = queryByTestId("FailedToSave");
             const dropsFailedToSave = $(".drop-row", FailedToSaveElt);
@@ -254,20 +300,26 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             const pushNewStatusMessage = jest.fn();
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-                pushNewStatusMessage : pushNewStatusMessage
-            }));
-            const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
-            pushNewStatusMessage.mockClear();
-            localObserver.next({
-                status : "FAIL"
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                    pushNewStatusMessage : pushNewStatusMessage
+                }));
             });
-            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.POST_DROP_FAILED)
+            const dropButton = getByTestId("drop-button");
+            act(() => {
+                fireEvent.click(dropButton);
+            });
+            pushNewStatusMessage.mockClear();
+            act(() => {
+                localObserver.next({
+                    status : "FAIL"
+                });
+            });
+            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.POST_DROP_FAILED);
         });
         test('calls setFatalError on failure', () => {
             const setFatalError = jest.fn();
@@ -276,14 +328,18 @@ describe("handles saveNewDrop correctly", () => {
                     observer.next({
                         status : "FAIL"
                     });
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-                setFatalError : setFatalError
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                    setFatalError : setFatalError
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
             expect(setFatalError.mock.calls).toHaveLength(1);
         });
     });
@@ -294,36 +350,48 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
             store.dispatch = jest.fn(store.dispatch);
-            ({ getByTestId } = renderWithOptions({
-            }));
-            const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
-            store.dispatch.mockClear();
-            localObserver.next({
-                status : "SUCCESS"
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                }));
             });
-            expect(store.dispatch.mock.calls[0][0].type).toBe("DROP_SUCCESSFULLY_SAVED")
+            const dropButton = getByTestId("drop-button");
+            act(() => {
+                fireEvent.click(dropButton);
+            });
+            store.dispatch.mockClear();
+            act(() => {
+                localObserver.next({
+                    status : "SUCCESS"
+                });
+            });
+            expect(store.dispatch.mock.calls[0][0].type).toBe("DROP_SUCCESSFULLY_SAVED");
         });
         it("DROP_SUCCESSFULLY_SAVED receives the drop as payload", () => {
             let localObserver;
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
             store.dispatch = jest.fn(store.dispatch);
-            ({ getByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
+            act(() => {
+                fireEvent.click(dropButton);
+            });
             store.dispatch.mockClear();
-            localObserver.next({
-                status : "SUCCESS"
+            act(() => {
+                localObserver.next({
+                    status : "SUCCESS"
+                });
             });
             const payload = store.dispatch.mock.calls[0][0].payload;
             expect(payload.text).toBe(droptext);
@@ -333,11 +401,13 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
             await act(async () => {
                 fireEvent.click(dropButton);
@@ -359,11 +429,13 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-            }));
+            act(() => {
+                ({ getByTestId, queryByTestId } = renderWithOptions({
+                }));
+            });
             const dropButton = getByTestId("drop-button");
             await act(() => {
                 fireEvent.click(dropButton);
@@ -381,20 +453,26 @@ describe("handles saveNewDrop correctly", () => {
             DropBackendService.saveNewDrop = (username) => {
                 return new Observable((observer) => {
                     localObserver = observer;
-                })
+                });
             };
             const pushNewStatusMessage = jest.fn();
             store.dispatch(NEW_DROPTEXT(droptext));
-            ({ getByTestId } = renderWithOptions({
-                pushNewStatusMessage : pushNewStatusMessage
-            }));
-            const dropButton = getByTestId("drop-button");
-            fireEvent.click(dropButton);
-            pushNewStatusMessage.mockClear();
-            localObserver.next({
-                status : "SUCCESS"
+            act(() => {
+                ({ getByTestId } = renderWithOptions({
+                    pushNewStatusMessage : pushNewStatusMessage
+                }));
             });
-            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.DROP_SAVED_SUCCESS)
+            const dropButton = getByTestId("drop-button");
+            act(() => {
+                fireEvent.click(dropButton);
+            });
+            pushNewStatusMessage.mockClear();
+            act(() => {
+                localObserver.next({
+                    status : "SUCCESS"
+                });
+            });
+            expect(pushNewStatusMessage.mock.calls[0][0]).toBe(COPY.DROP_SAVED_SUCCESS);
         });
     });
 });

@@ -7,13 +7,13 @@ let getByTestId;
 let queryByTestId;
 
 const setProps = () => {
-}
+};
 const noop = () => {};
 
 beforeEach(() => {
     setProps();
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
@@ -64,7 +64,7 @@ describe("if isUsernameSet false then", () => {
     it('calls postNewUsername if click login-done-button', (done) => {
         const postNewUsername = () => {
             done();
-        }
+        };
         ({ getByTestId, queryByTestId } = renderWithOptions({
             isUsernameSet : false,
             username : "adam",
@@ -77,7 +77,7 @@ describe("if isUsernameSet false then", () => {
         const postNewUsername = (val) => {
             expect(val).toBe("apple");
             done();
-        }
+        };
         ({ getByTestId, queryByTestId } = renderWithOptions({
             isUsernameSet : false,
             username : "adam",

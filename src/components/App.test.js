@@ -5,7 +5,7 @@ import DropBackendService from "../services/DropBackendService.js";
 import Observable from "../helpers/Observable.js";
 import LoginHelper from "../helpers/LoginHelper.js";
 import $ from "jquery";
-import DropNote from "../entities/DropNote.js"
+import DropNote from "../entities/DropNote.js";
 
 jest.mock('../services/DropBackendService.js');
 jest.mock('../helpers/LoginHelper.js');
@@ -15,7 +15,7 @@ let getByTestId, queryByTestId;
 
 beforeEach(() => {
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
@@ -31,7 +31,7 @@ const exampleData = () => {
     drop.hashtags = ["#apple"];
     drop.key = 0;
     return [drop];
-}
+};
 
 test('renders without crashing if username in local storage', () => {
     LoginHelper.tryToGetUsernameFromStorage.mockReturnValueOnce("adam");

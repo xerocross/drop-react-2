@@ -4,7 +4,7 @@ import StringHash from "../helpers/StringHash.js";
 export default class Drop {
     constructor (text, username) {
         const time = Date.now();
-        const preHash = `${username}:${time}:${text}`
+        const preHash = `${username}:${time}:${text}`;
         let hash = StringHash.getHash(preHash);
         hash = Math.abs(hash);
         this.text = text;

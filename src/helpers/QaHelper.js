@@ -7,7 +7,7 @@ const getQueryObject = function () {
         query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
     }
     return query;
-}
+};
 
 export default {
     queryObj : getQueryObject(),
@@ -19,7 +19,7 @@ export default {
                     callback();
                 }
             }
-        }
+        };
     },
     exampleDrops : [
         {
@@ -38,4 +38,4 @@ export default {
             key : "2"
         }
     ]
-}
+};

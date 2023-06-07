@@ -15,4 +15,4 @@ export default {
     GETTING_DROPS_STATUS : "getting drops from server",
     HELP_TIP_HASHTAG_SEARCH : "Use the hash symbol '#' to search for a word (type '#apple' to search for 'apple').",
     SET_USERNAME_INFO : `Your username and password are one and the same. Anybody who guesses your username can access your account.  If you choose a username that is already occupied, there will be no conflict.  You will just be accessing the same account as someone else.`
-}
+};

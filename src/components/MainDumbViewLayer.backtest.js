@@ -5,7 +5,6 @@ import DropHashtagIntersect from "../helpers/DropHashtagIntersect.js";
 import $ from "jquery";
 import Store from "../store.js";
 import { Provider } from "react-redux";
-import { drop1, drop2, drop3 } from "../testing-helpers.js";
 import { NEW_DROPTEXT, UPDATE_DROPS } from "../actions.js";
 
 let div;
@@ -58,28 +57,42 @@ test('renders without crashing', () => {
 describe("renders UnsavedDrops correctly", () => {
     test('if there are unsaved drops, then it renders UnsavedDrops', () => {
         unsavedDrops = [
-            drop1,
-            drop2
+            {
+                text : "happy",
+                hashtags : [],
+                key : "happy"
+            },
+            {
+                text : "day",
+                hashtags : [],
+                key : "day"
+            }
         ];
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                unsavedDrops : unsavedDrops
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            unsavedDrops : unsavedDrops
+        }));
+
         const unsavedDropsDiv = queryByTestId("unsaved-drops");
         expect(unsavedDropsDiv).toBeTruthy();
     });
 
     test('renders correct number of unsaved drops (2)', () => {
         unsavedDrops = [
-            drop1,
-            drop2
+            {
+                text : "happy",
+                hashtags : [],
+                key : "happy"
+            },
+            {
+                text : "day",
+                hashtags : [],
+                key : "day"
+            }
         ];
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                unsavedDrops : unsavedDrops
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            unsavedDrops : unsavedDrops
+        }));
+
         const unsavedDropsDiv = queryByTestId("unsaved-drops");
         const dropItems = $(".drop-item", unsavedDropsDiv);
         expect(dropItems).toHaveLength(2);
@@ -87,11 +100,9 @@ describe("renders UnsavedDrops correctly", () => {
 
     test('if there are no unsaved drops, then it does not render UnsavedDrops', () => {
         unsavedDrops = [];
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                unsavedDrops : unsavedDrops
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            unsavedDrops : unsavedDrops
+        }));
         const unsavedDropsDiv = queryByTestId("unsaved-drops");
         expect(unsavedDropsDiv).toBeFalsy();
     });
@@ -135,45 +146,67 @@ describe("renders UnsavedDrops correctly", () => {
 describe("renders dropsearch correctly", () => {
     test('renders DropSearch', () => {
         drops = [
-            drop1,
-            drop2
+            {
+                text : "happy",
+                hashtags : [],
+                key : "happy"
+            },
+            {
+                text : "day",
+                hashtags : [],
+                key : "day"
+            }
         ];
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                drops : drops
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            drops : drops
+        }));
         const dropSearchElement = queryByTestId("drop-search");
         expect(dropSearchElement).toBeTruthy();
     });
 
     test('renders DropSearch with correct number of drops (2)', () => {
         drops = [
-            drop1,
-            drop2
+            {
+                text : "happy",
+                hashtags : [],
+                key : "happy"
+            },
+            {
+                text : "day",
+                hashtags : [],
+                key : "day"
+            }
         ];
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                drops : drops
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            drops : drops
+        }));
         const dropSearchElement = queryByTestId("drop-search");
         const dropListElement = $("[data-testid='drop-list']", dropSearchElement);
         const dropItems = $(".drop-item", dropListElement);
-        expect(dropItems).toHaveLength(2);
+        expect(dropItems).toHaveLength(2)
     });
 
     test('renders DropSearch with correct number of drops (3)', () => {
         drops = [
-            drop1,
-            drop2,
-            drop3
+            {
+                text : "happy",
+                hashtags : [],
+                key : "happy"
+            },
+            {
+                text : "day",
+                hashtags : [],
+                key : "day"
+            },
+            {
+                text : "time",
+                hashtags : [],
+                key : "time"
+            }
         ];
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                drops : drops
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            drops : drops
+        }));
         const dropSearchElement = queryByTestId("drop-search");
         const dropListElement = $("[data-testid='drop-list']", dropSearchElement);
         const dropItems = $(".drop-item", dropListElement);
@@ -183,34 +216,26 @@ describe("renders dropsearch correctly", () => {
 
 describe("renders MainTextInput correctly", () => {
     test('renders MainTextInput', () => {
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+        }));
         const mainTextInputElt = queryByTestId("main-text-input");
         expect(mainTextInputElt).toBeTruthy();
     });
 
     test('editing text in main textarea fires updateDroptext', () => {
         updateDroptext = jest.fn();
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                updateDroptext : updateDroptext
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            updateDroptext : updateDroptext
+        }));
         const mainTextarea = getByTestId("main-drop-textarea");
-        act(() => {
-            fireEvent.change(mainTextarea, { target : { value : "apple #candy" } });
-        });
+        fireEvent.change(mainTextarea, { target : { value : "apple #candy" } })
         expect(updateDroptext.mock.calls.length).toBe(1);
     });
     test('clicking drop button calls createDrop prop', () => {
         const createDrop = jest.fn();
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                createDrop : createDrop
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            createDrop : createDrop
+        }));
         const mainTextarea = getByTestId("main-drop-textarea");
         fireEvent.change(mainTextarea, { target : { value : "apple #candy" } })
         const dropButton = getByTestId("drop-button");
@@ -218,11 +243,9 @@ describe("renders MainTextInput correctly", () => {
         expect(createDrop.mock.calls.length).toBe(1);
     });
     test('renders MainTextInput with text from droptext state', () => {
-        act(() => {
-            ({ getByTestId, queryByTestId } = renderWithOptions({
-                droptext : "apple"
-            }));
-        });
+        ({ getByTestId, queryByTestId } = renderWithOptions({
+            droptext : "apple"
+        }));
         const mainTextInputElt = getByTestId("main-text-input");
         const textInput = $("[data-testid='main-drop-textarea']", mainTextInputElt).eq(0);
         expect(textInput.val()).toBe("apple");

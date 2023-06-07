@@ -10,4 +10,4 @@ export default {
     unsetLocalUsername () {
         LocalStorageUsername.clearUsername();
     }
-}
+};

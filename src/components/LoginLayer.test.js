@@ -26,7 +26,7 @@ beforeEach(() => {
         getUserDrops : () => (new Observable((observer) => {
         }))
     };
-})
+});
 
 afterEach(() => {
     cleanup();
@@ -46,7 +46,7 @@ const renderWithOptions = (config) => {
         appConfirm = {config.appConfirm || noop}
         LoginHelper = {config.LoginHelper || LoginHelper}
     /></ Provider>, div);
-}
+};
 
 test('renders without crashing', () => {
     renderWithOptions({});
@@ -61,7 +61,7 @@ it('tries to get username from local storage on mount', () => {
     ({ getByTestId, queryByTestId } = renderWithOptions({
         LoginHelper : LoginHelper
     }));
-    expect(LoginHelper.tryToGetUsernameFromStorage.mock.calls.length).toBe(1)
+    expect(LoginHelper.tryToGetUsernameFromStorage.mock.calls.length).toBe(1);
 });
 
 describe("if username has been posted", () => {
@@ -121,7 +121,7 @@ it('renders IsLoggedInStuff if user sets username value and clicks login-done-bu
     ({ getByTestId, queryByTestId } = renderWithOptions({
         LoginHelper : LoginHelper
     }));
-    const usernameInput = getByTestId("username-input")
+    const usernameInput = getByTestId("username-input");
     fireEvent.change(usernameInput, { target : { value : "andrew" } });
     const loginDoneButton = getByTestId("login-done-button");
     store.dispatch.mockClear();

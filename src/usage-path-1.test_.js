@@ -13,7 +13,7 @@ let div;
 
 beforeEach(() => {
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
@@ -32,7 +32,7 @@ const exampleData = () => {
             key : "0"
         }
     ];
-}
+};
 
 test('renders without crashing if username in local storage', () => {
     LoginHelper.tryToGetUsernameFromStorage.mockReturnValueOnce("adam");

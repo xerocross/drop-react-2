@@ -24,7 +24,7 @@ let DropBackendService;
 beforeEach(() => {
     store = Store();
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();

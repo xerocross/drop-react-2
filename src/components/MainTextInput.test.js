@@ -6,17 +6,17 @@ import Store from "../store.js";
 import { Provider } from "react-redux";
 import { NEW_DROPTEXT, UPDATE_DROPS } from "../actions.js";
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 let getByTestId;
 const noop = () => {};
-const setProps = () => {}
+const setProps = () => {};
 let store;
 
 beforeEach(() => {
     store = Store();
     setProps();
-})
+});
 
 afterEach(() => {
     cleanup();
@@ -34,7 +34,7 @@ test('changing textarea calls updateDropText ', (done) => {
     const updateDroptext = (text) => {
         expect(text).toBe(testVal);
         done();
-    }
+    };
     ({ getByTestId } = render(<Provider store={store}><MainTextInput
         hashtags = {[]}
         dropDrop = { noop }
@@ -49,7 +49,7 @@ test('drop button calls dropDrop prop', (done) => {
     const testVal = `apple ${testHashtag} brandy`;
     const dropDrop = () => {
         done();
-    }
+    };
     ({ getByTestId } = render(<Provider store={store}><MainTextInput
         hashtags = {[]}
         dropDrop = { dropDrop }
@@ -58,7 +58,7 @@ test('drop button calls dropDrop prop', (done) => {
     const textarea = getByTestId("main-drop-textarea");
     const dropButton = getByTestId("drop-button");
     fireEvent.change(textarea, { target : { value : testVal } });
-    fireEvent.click(dropButton)
+    fireEvent.click(dropButton);
 });
 
 test('list of hashtags displayed', () => {

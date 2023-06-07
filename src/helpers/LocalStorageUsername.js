@@ -19,4 +19,4 @@ export default {
             LocalStorageWrapper.removeItem("drop:username");
         }
     }
-}
+};

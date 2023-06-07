@@ -1,12 +1,12 @@
 import { LocalStorageWrapper } from "cross-js-base";
-const base_key = "drop-local-storage"
+const baseKey = "drop-local-storage";
 
 export default {
     getDropListKey (username) {
-        return `${base_key}:${username}`;
+        return `${baseKey}:${username}`;
     },
     getDropKey (dropId) {
-        return `${base_key}:${dropId}`;
+        return `${baseKey}:${dropId}`;
     },
     addToList (username, drop) {
         if (!localStorage) {
@@ -32,4 +32,4 @@ export default {
     getDrop (id) {
         return JSON.parse(LocalStorageWrapper.getItem(this.getDropKey(id)));
     }
-}
+};

@@ -29,14 +29,14 @@ export default {
                                     status : "SUCCESS",
                                     data : response.data,
                                     url : url
-                                })
+                                });
                             } else {
                                 observer.next({
                                     status : "FAILED_ATTEMPT",
                                     attemptNum : iteration,
                                     statusCode : response.status,
                                     url : url
-                                })
+                                });
                                 setTimeout(() => {
                                     attempt();
                                     delay += delay;
@@ -49,16 +49,16 @@ export default {
                                 attemptNum : iteration,
                                 error : errorThrown,
                                 url : url
-                            })
+                            });
                             setTimeout(() => {
                                 attempt();
                                 delay += 1000;
                             }, delay);
-                        })
+                        });
                 }
-            }
+            };
             attempt();
-        })
+        });
         return observable;
     },
     get : function (configObject) {
@@ -76,4 +76,4 @@ export default {
         const successStatus = configObject.successStatus || 201;
         return this.executeRequest(configObject, successStatus);
     }
-}
+};
