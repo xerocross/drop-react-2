@@ -1,13 +1,13 @@
 import React from 'react';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import App from "./App.jsx";
-import DropBackendService from "../helpers/DropBackendService.js";
+import DropBackendService from "../services/DropBackendService.js";
 import Observable from "../helpers/Observable.js";
 import LoginHelper from "../helpers/LoginHelper.js";
 import $ from "jquery";
 import DropNote from "../entities/DropNote.js"
 
-jest.mock('../helpers/DropBackendService.js');
+jest.mock('../services/DropBackendService.js');
 jest.mock('../helpers/LoginHelper.js');
 
 let div;

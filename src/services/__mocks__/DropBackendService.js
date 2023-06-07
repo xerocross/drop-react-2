@@ -1,4 +1,4 @@
-import Observable from "../Observable.js";
+import Observable from "../../helpers/Observable.js";
 
 export default {
     saveNewDrop : jest.fn(),

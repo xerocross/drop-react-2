@@ -1,5 +1,5 @@
 import HashtagHelper from "./helpers/HashtagHelper";
-import QAHelper from "./helpers/qa-helper.js";
+import QAHelper from "./helpers/QaHelper.js";
 
 const initialState = (obj) => {
     let unsavedDrops = [];

@@ -1,9 +1,9 @@
 import React from "react";
 import BaseComponent from "./BaseComponent.jsx";
-import LocalStorageService from "../services/local-storage-service.js";
+import LocalStorageService from "../services/LocalStorageService.js";
 import DropBusinessLogicLayer from "./DropBusinessLogicLayer.jsx";
 import HashtagHelper from "../helpers/HashtagHelper.js";
-import StringHash from "../helpers/string-hash.js";
+import StringHash from "../helpers/StringHash.js";
 import {
     UPDATE_DROPS, SET_SYNCING, SET_IS_SYNCED, ADD_UNSAVED_DROP, DROP_SUCCESSFULLY_SAVED,
     ATTEMPT_SAVE_DROP, DROP_FAILED_TO_SAVE

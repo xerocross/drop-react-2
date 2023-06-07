@@ -1,5 +1,5 @@
 import HashtagHelpers from "../helpers/HashtagHelper.js";
-import StringHash from "../helpers/string-hash.js";
+import StringHash from "../helpers/StringHash.js";
 
 export default class Drop {
     constructor (text, username) {

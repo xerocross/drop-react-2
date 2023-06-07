@@ -2,7 +2,7 @@ import React from "react";
 import BaseComponent from "./BaseComponent.jsx";
 import LoginLayer from "./LoginLayer.jsx";
 import StatusBar from "./StatusBar";
-import DropBackendService from "../helpers/DropBackendService.js";
+import DropBackendService from "../services/DropBackendService.js";
 import LoginHelper from "../helpers/LoginHelper.js";
 import { connect } from "react-redux";
 import {} from "../actions.js";

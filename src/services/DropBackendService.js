@@ -1,4 +1,4 @@
-import DurableAxios from "./durable-axios.js";
+import DurableAxios from "../helpers/DurableAxios.js";
 const baseUrl = "https://thin-data-backend.herokuapp.com";
 
 export default {

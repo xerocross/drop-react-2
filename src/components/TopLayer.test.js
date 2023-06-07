@@ -6,10 +6,10 @@ import { Provider } from "react-redux";
 import { NEW_DROPTEXT, UPDATE_DROPS, POST_USERNAME_SET, UNSET_USERNAME } from "../actions.js";
 import TopLayer from "./TopLayer.jsx";
 import LoginHelper from "../helpers/LoginHelper.js";
-import DropBackendService from "../helpers/DropBackendService.js";
+import DropBackendService from "../services/DropBackendService.js";
 import Observable from "../helpers/Observable.js";
 
-jest.mock('../helpers/DropBackendService.js');
+jest.mock('../services/DropBackendService.js');
 jest.mock('../helpers/LoginHelper.js');
 
 let div;
