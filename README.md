@@ -10,7 +10,7 @@ This is an entirely new port of my earlier Drop-React (https://github.com/xerocr
 
 ## Technology
 
-This is a **React/Redux** application, meaning it uses Redux architecture to maintain a global state. I'm still not sure I was ever sold on that, but it was very much the style of the time in 2019. It uses a **MongoDB** database on the backend for persistence. That was a novel advancement for me at the time as I was trained originally as a frontend engineer, and I wrote frontend widgets with entirely static backends.
+This is a **React/Redux** application, meaning it uses Redux architecture to maintain a global state. I'm still not sure I was ever sold on that, but it was very much the style of the time in 2019. It uses a **MongoDB** database on the backend for persistence. That was a novel advancement *for me* at the time as I was trained originally as a frontend engineer, and I wrote frontend widgets with entirely static backends.
 
 The backend code of this app is not located here. It's a very small and simple express server that handles interactions with the database. I call it thin-data-backend, but it is not worth publishing.
 
@@ -18,17 +18,14 @@ The backend code of this app is not located here. It's a very small and simple e
 
 Some things here are notably home-rolled when I could easily have used an existing library. When I do that, 
 it's usually because I want to practice exactly what I'm doing, whether that's writing vanilla JavaScript or
-using some particular package. For one example, I wrote my own very simple "Observable" object rather than 
-use a library Observable or promises.
+using some particular package/library. For one example, I wrote my own very simple "Observable" object rather than 
+use a library Observable or promises. I also used my own `cross-js-base` package.
 
 ## To-Do
 
-There are still perhaps a thousand violations of my own eslint rule-set, and I think many of the unit tests need
-to be improved using proper asynchronous functions. Also some of the files seem to have been filed in the wrong directoroy. 
-These are things I may get around to improving one day, but
-the app works, and that is my main concern.
+There are still perhaps a thousand violations of my own eslint rule-set. Also some of the files seem to have been filed in the wrong directoroy. I may continue making improvements, but that is not a high priority right now.
 
-I don't plan any major changes or improvements to the nature of this app. I consider it stable. I probably won't make any
+I don't plan any major changes or improvements to the nature or architecture of this app. I consider it stable. I probably won't make any
 changes worthy of bumping up to version 3 until most 2023 technology is no longer supported. However, there may be a 
 **Drop-Spring** sometime in the not-so-distant future.
 
@@ -41,6 +38,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 #### `npm start`
+
+Builds the app and runs it using an express server, which by default makes it available on [http://localhost:3500](http://localhost:3500).
+
+#### `npm dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
