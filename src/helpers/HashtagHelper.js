@@ -2,8 +2,9 @@ export default {
     removeDuplicates (arr) {
         const returnList = [];
         for (const item of arr) {
-            if (returnList.indexOf(item) === -1) {
-                returnList.push(item);
+            const lowercaseItem = item.toLowerCase();
+            if (!returnList.includes(lowercaseItem)) {
+                returnList.push(lowercaseItem);
             }
         }
         return returnList;

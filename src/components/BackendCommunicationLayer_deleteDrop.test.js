@@ -78,9 +78,9 @@ describe("handles deleteDrop correctly", () => {
     describe("status messages", () => {
         it("pushes the COPY.DELETE_DROP_STATUS status if deleting drop from backend has been confirmed and is now being attempted", () => {
             const pushNewStatusMessage = jest.fn();
-            
+
             store.dispatch(UPDATE_DROPS(drops));
-            
+
             act(() => {
                 ({ container } = renderWithOptions({
                     pushNewStatusMessage : pushNewStatusMessage,

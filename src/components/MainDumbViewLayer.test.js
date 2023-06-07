@@ -15,7 +15,7 @@ let container;
 
 const noop = () => {};
 const setProps = () => {
-}
+};
 let store;
 let unsavedDrops = [];
 const trySaveUnsavedDrops = noop;
@@ -24,7 +24,7 @@ beforeEach(() => {
     store = Store();
     setProps();
     div = document.createElement('div');
-})
+});
 
 afterEach(() => {
     cleanup();
@@ -177,7 +177,7 @@ describe("renders dropsearch correctly", () => {
         const dropSearchElement = queryByTestId("drop-search");
         const dropListElement = $("[data-testid='drop-list']", dropSearchElement);
         const dropItems = $(".drop-item", dropListElement);
-        expect(dropItems).toHaveLength(3)
+        expect(dropItems).toHaveLength(3);
     });
 });
 
@@ -212,7 +212,7 @@ describe("renders MainTextInput correctly", () => {
             }));
         });
         const mainTextarea = getByTestId("main-drop-textarea");
-        fireEvent.change(mainTextarea, { target : { value : "apple #candy" } })
+        fireEvent.change(mainTextarea, { target : { value : "apple #candy" } });
         const dropButton = getByTestId("drop-button");
         fireEvent.click(dropButton);
         expect(createDrop.mock.calls.length).toBe(1);
