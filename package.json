@@ -1,6 +1,6 @@
 {
   "name": "drop-react-2",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "engines": {
     "node": "18.x"
   },
@@ -21,7 +21,8 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "sass": "^1.62.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
     "eslint": "^8.41.0",
@@ -31,8 +32,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "jest-junit": "^16.0.0",
-    "jquery": "^3.7.0",
-    "react-scripts": "5.0.1"
+    "jquery": "^3.7.0"
   },
   "scripts": {
     "start": "npm run build && npm run engage",
